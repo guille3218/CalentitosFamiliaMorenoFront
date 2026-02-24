@@ -1,0 +1,65 @@
+<div class="min-h-screen bg-crema flex items-center justify-center px-4 py-12">
+  <div class="w-full max-w-md">
+
+    <!-- Logo Header -->
+    <div class="text-center mb-8">
+      <div class="w-20 h-20 bg-chocolate rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+        <img src="assets/img/logo.png" alt="Logo">
+      </div>
+      <h1 class="text-3xl font-black text-chocolate">¡Bienvenido!</h1>
+      <p class="text-gray-500 mt-1">Inicia sesión para pedir tus calentitos</p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+
+      @if (errorMsg) {
+        <div class="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
+          <fa-icon [icon]="faCircleExclamation" class="mr-1"></fa-icon> {{ errorMsg }}
+        </div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+
+        <div>
+          <label for="username" class="label-field">Usuario</label>
+          <input id="username" type="text" formControlName="username"
+            class="input-field" placeholder="usuario" autocomplete="username">
+          @if (form.get('username')?.invalid && form.get('username')?.touched) {
+            <p class="text-red-500 text-xs mt-1">El usuario es obligatorio</p>
+          }
+        </div>
+
+        <div>
+          <label for="password" class="label-field">Contraseña</label>
+          <div class="relative">
+            <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+              class="input-field pr-10" placeholder="••••••••" autocomplete="current-password">
+            <button type="button" (click)="showPassword = !showPassword"
+              class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-chocolate transition-colors"
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              @if (showPassword) {
+                <fa-icon [icon]="faEyeSlash"></fa-icon>
+              } @else {
+                <fa-icon [icon]="faEye"></fa-icon>
+              }
+            </button>
+          </div>
+          @if (form.get('password')?.invalid && form.get('password')?.touched) {
+            <p class="text-red-500 text-xs mt-1">La contraseña es obligatoria</p>
+          }
+        </div>
+
+        <button type="submit" [disabled]="loading || form.invalid"
+          class="btn-chocolate w-full text-center disabled:opacity-60 disabled:cursor-not-allowed">
+          @if (loading) { <span>Entrando…</span> } @else { <span>Iniciar sesión</span> }
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-500 mt-6">
+        ¿No tienes cuenta?
+        <a routerLink="/register" class="text-churro font-bold hover:underline">Regístrate aquí</a>
+      </p>
+    </div>
+  </div>
+</div>

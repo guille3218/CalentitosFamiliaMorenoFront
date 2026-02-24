@@ -1,0 +1,97 @@
+<div class="min-h-screen bg-crema flex items-center justify-center px-4 py-12">
+  <div class="w-full max-w-lg">
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="w-20 h-20 bg-chocolate rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+        <span class="text-churro font-black text-3xl">C</span>
+      </div>
+      <h1 class="text-3xl font-black text-chocolate">Únete a Calentitos</h1>
+      <p class="text-gray-500 mt-1">Crea tu cuenta y empieza a pedir</p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+
+      @if (errorMsg) {
+        <div class="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
+          <fa-icon [icon]="faCircleExclamation" class="mr-1"></fa-icon> {{ errorMsg }}
+        </div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="label-field">Nombre *</label>
+            <input type="text" formControlName="nombre" class="input-field" placeholder="Juan">
+            @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+              <p class="text-red-500 text-xs mt-1">Requerido</p>
+            }
+          </div>
+          <div>
+            <label class="label-field">Apellidos</label>
+            <input type="text" formControlName="apellidos" class="input-field" placeholder="García López">
+          </div>
+        </div>
+
+        <div>
+          <label class="label-field">Email *</label>
+          <input type="email" formControlName="email" class="input-field" placeholder="juan@ejemplo.com">
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Email válido requerido</p>
+          }
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="label-field">Teléfono</label>
+            <input type="tel" formControlName="telefono" class="input-field" placeholder="612345678">
+          </div>
+          <div>
+            <label class="label-field">Dirección</label>
+            <input type="text" formControlName="direccion" class="input-field" placeholder="Calle Mayor 1">
+          </div>
+        </div>
+
+        <div>
+          <label class="label-field">Usuario *</label>
+          <input type="text" formControlName="username" class="input-field" placeholder="juangarcia" autocomplete="username">
+          @if (form.get('username')?.invalid && form.get('username')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Requerido</p>
+          }
+        </div>
+
+        <div>
+          <label class="label-field">Contraseña *</label>
+          <div class="relative">
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+              class="input-field pr-10" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+            <button type="button" (click)="showPassword = !showPassword"
+              class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-chocolate transition-colors"
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              @if (showPassword) {
+                <fa-icon [icon]="faEyeSlash"></fa-icon>
+              } @else {
+                <fa-icon [icon]="faEye"></fa-icon>
+              }
+            </button>
+          </div>
+          @if (form.get('password')?.invalid && form.get('password')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Mínimo 6 caracteres</p>
+          }
+        </div>
+
+        <button type="submit" [disabled]="loading || form.invalid"
+          class="btn-chocolate w-full text-center mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
+          @if (loading) { <span>Creando cuenta…</span> } @else { <span>Crear cuenta</span> }
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-500 mt-6">
+        ¿Ya tienes cuenta?
+        <a routerLink="/login" class="text-churro font-bold hover:underline">Inicia sesión</a>
+      </p>
+    </div>
+  </div>
+</div>

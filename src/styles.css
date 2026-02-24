@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-crema font-sans text-chocolate transition-colors duration-300;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  /* Botones reutilizables */
+  .btn-chocolate {
+    @apply bg-chocolate text-crema font-semibold py-2 px-5 rounded-xl hover:bg-opacity-90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+  .btn-churro {
+    @apply bg-churro text-chocolate font-semibold py-2 px-5 rounded-xl hover:bg-opacity-90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+  .btn-outline {
+    @apply border-2 border-chocolate text-chocolate font-semibold py-2 px-5 rounded-xl hover:bg-chocolate hover:text-crema transition-all duration-200 active:scale-95;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white font-semibold py-2 px-5 rounded-xl hover:bg-red-700 transition-all duration-200 active:scale-95;
+  }
+  .btn-sm {
+    @apply py-1.5 px-3 text-sm rounded-lg;
+  }
+
+  /* Tarjetas */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-crema hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-2.5 text-chocolate placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-churro focus:border-transparent transition-all duration-200;
+  }
+  .label-field {
+    @apply block text-sm font-semibold text-chocolate mb-1;
+  }
+
+  /* Badges de estado de pedidos */
+  .badge-pendiente {
+    @apply bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-confirmado {
+    @apply bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-preparando {
+    @apply bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-listo {
+    @apply bg-menta text-chocolate px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-completado {
+    @apply bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-cancelado {
+    @apply bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+}

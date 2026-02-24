@@ -1,0 +1,187 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+  <!-- Hero Header -->
+  <div class="text-center mb-10">
+    <h1 class="text-4xl sm:text-5xl font-black text-chocolate mb-2">Nuestro Menú</h1>
+    <p class="text-gray-500 text-lg">Churros y chocolate hechos con amor <fa-icon [icon]="faHeart" class="text-chocolate"></fa-icon></p>
+  </div>
+
+  <!-- Filtro por categoría -->
+  <div class="flex flex-wrap gap-2 mb-8 justify-center">
+    <button (click)="filtrarCategoria('')"
+      [class.bg-chocolate]="categoriaActual() === ''"
+      [class.text-crema]="categoriaActual() === ''"
+      [class.bg-white]="categoriaActual() !== ''"
+      class="px-4 py-2 rounded-full text-sm font-semibold border border-chocolate hover:bg-chocolate hover:text-crema transition-all">
+      Todos
+    </button>
+    @for (cat of categorias(); track cat) {
+      <button (click)="filtrarCategoria(cat)"
+        [class.bg-chocolate]="categoriaActual() === cat"
+        [class.text-crema]="categoriaActual() === cat"
+        [class.bg-white]="categoriaActual() !== cat"
+        class="px-4 py-2 rounded-full text-sm font-semibold border border-chocolate hover:bg-chocolate hover:text-crema transition-all">
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <!-- Botón nuevo producto (Admin) -->
+  @if (auth.isAdmin()) {
+    <div class="flex justify-end mb-6">
+      <button (click)="abrirModal()" class="btn-churro">
+        <fa-icon [icon]="faPlus"></fa-icon> Nuevo Producto
+      </button>
+    </div>
+  }
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="flex justify-center items-center py-20">
+      <div class="w-10 h-10 border-4 border-churro border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  }
+
+  <!-- Grid de productos -->
+  @if (!loading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      @for (producto of productosFiltrados(); track producto.id) {
+        <div class="card overflow-hidden flex flex-col group">
+
+          <!-- Imagen -->
+          <div class="relative bg-menta bg-opacity-30 h-44 flex items-center justify-center overflow-hidden">
+            @if (producto.imagen_url) {
+              <img [src]="producto.imagen_url" [alt]="producto.nombre"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            } @else {
+              <fa-icon [icon]="faCookieBite" class="text-5xl text-yellow-800"></fa-icon>
+            }
+            <!-- Badge estado inactivo (admin) -->
+            @if (producto.estado === 'inactivo') {
+              <span class="absolute top-2 right-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">Inactivo</span>
+            }
+            <!-- Badge categoría -->
+            @if (producto.categoria) {
+              <span class="absolute bottom-2 left-2 bg-chocolate text-crema text-xs px-2 py-1 rounded-full">
+                {{ producto.categoria }}
+              </span>
+            }
+          </div>
+
+          <!-- Contenido -->
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="font-bold text-chocolate text-base leading-tight mb-1">{{ producto.nombre }}</h3>
+            @if (producto.descripcion) {
+              <p class="text-gray-500 text-sm mb-3 flex-1 line-clamp-2">{{ producto.descripcion }}</p>
+            }
+            @if (producto.stock_actual !== undefined) {
+              <p class="text-xs text-gray-400 mb-2">Stock: {{ producto.stock_actual }}</p>
+            }
+
+            <div class="flex items-center justify-between mt-auto">
+              <span class="text-2xl font-black text-chocolate">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</span>
+
+              <!-- Acciones cliente -->
+              @if (auth.isLoggedIn() && !auth.isAdmin()) {
+                <button (click)="agregarAlCarrito(producto)"
+                  class="bg-churro text-chocolate w-10 h-10 rounded-full flex items-center justify-center text-xl font-black hover:bg-opacity-80 hover:scale-110 transition-all shadow-sm">
+                  +
+                </button>
+              }
+
+              <!-- Acciones admin -->
+              @if (auth.isAdmin()) {
+                <div class="flex gap-2">
+                  <button (click)="abrirModal(producto)" class="btn-outline btn-sm">
+                    <fa-icon [icon]="faPenToSquare"></fa-icon>
+                  </button>
+                  <button (click)="toggleEstado(producto)"
+                    [class]="producto.estado === 'activo' ? 'btn-danger btn-sm' : 'btn-churro btn-sm'">
+                      <fa-icon [icon]=" producto.estado === 'activo' ? faBan : faCircleCheck"></fa-icon>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (productosFiltrados().length === 0 && !loading()) {
+      <div class="text-center py-16 text-gray-400">
+        <fa-icon [icon]="faCookieBite" class="text-5xl mb-4"></fa-icon>
+        <p class="text-lg font-medium">No hay productos disponibles</p>
+      </div>
+    }
+  }
+
+  <!-- Toast mensaje -->
+  @if (toastMsg()) {
+    <div class="fixed bottom-6 right-6 bg-chocolate text-crema px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold animate-bounce z-50">
+      <fa-icon [icon]="faSquareCheck" class="text-green-500"></fa-icon> {{ toastMsg() }}
+    </div>
+  }
+
+  <!-- Modal Crear/Editar (Admin) -->
+  @if (mostrarModal()) {
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-8 max-h-screen overflow-y-auto">
+
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-black text-chocolate">
+            {{ editandoProducto() ? 'Editar Producto' : 'Nuevo Producto' }}
+          </h2>
+          <button (click)="cerrarModal()" class="text-gray-400 hover:text-chocolate text-2xl">&times;</button>
+        </div>
+
+        <form [formGroup]="productoForm" (ngSubmit)="guardarProducto()" class="space-y-4">
+
+          <div>
+            <label class="label-field">Nombre *</label>
+            <input type="text" formControlName="nombre" class="input-field" placeholder="Churro con chocolate">
+          </div>
+
+          <div>
+            <label class="label-field">Descripción</label>
+            <textarea formControlName="descripcion" class="input-field resize-none h-20" placeholder="Descripción del producto..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="label-field">Precio (€) *</label>
+              <input type="number" step="0.01" formControlName="precio" class="input-field" placeholder="2.50">
+            </div>
+            <div>
+              <label class="label-field">Stock</label>
+              <input type="number" formControlName="stock_actual" class="input-field" placeholder="50">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="label-field">Categoría</label>
+              <input type="text" formControlName="categoria" class="input-field" placeholder="Churros">
+            </div>
+            <div>
+              <label class="label-field">Código SKU</label>
+              <input type="text" formControlName="codigo_sku" class="input-field" placeholder="CHU-001">
+            </div>
+          </div>
+
+          <div>
+            <label class="label-field">URL Imagen</label>
+            <input type="url" formControlName="imagen_url" class="input-field" placeholder="https://...">
+          </div>
+
+          <div class="flex justify-end gap-3 pt-4">
+            <button type="button" (click)="cerrarModal()" class="btn-outline">Cancelar</button>
+            <button type="submit" [disabled]="productoForm.invalid || guardando()" class="btn-churro disabled:opacity-60">
+              {{ guardando() ? 'Guardando…' : 'Guardar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+</div>

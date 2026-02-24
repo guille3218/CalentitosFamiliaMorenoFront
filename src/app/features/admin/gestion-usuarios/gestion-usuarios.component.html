@@ -1,0 +1,102 @@
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h1 class="text-3xl font-black text-chocolate">Gestión de Usuarios</h1>
+      <p class="text-gray-500 mt-1">{{ usuarios().length }} usuarios registrados</p>
+    </div>
+    <button (click)="cargarUsuarios()" class="btn-outline btn-sm">
+      <fa-icon [icon]="faArrowsRotate"></fa-icon>
+      Actualizar
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-center py-16">
+      <div class="w-10 h-10 border-4 border-churro border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  }
+
+  @if (!loading()) {
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead>
+            <tr class="bg-chocolate text-crema">
+              <th class="px-6 py-4 text-left text-sm font-bold">ID</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">Nombre</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">Email</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">Teléfono</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">Rol</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">Estado</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50">
+            @for (usuario of usuarios(); track usuario.id) {
+              <tr class="hover:bg-crema transition-colors">
+                <td class="px-6 py-4 text-sm text-gray-400 font-mono">#{{ usuario.id }}</td>
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-menta rounded-full flex items-center justify-center flex-shrink-0">
+                      <span class="text-chocolate font-bold text-sm">{{ usuario.nombre[0] | uppercase }}</span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-bold text-chocolate">{{ usuario.nombre }} {{ usuario.apellidos }}</p>
+                      <p class="text-xs text-gray-400">{{ usuario.username }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ usuario.email }}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">{{ usuario.telefono || '-' }}</td>
+
+                <!-- Rol: dropdown para cambiar -->
+                <td class="px-6 py-4 text-center">
+                  <select [ngModel]="usuario.rol"
+                    (ngModelChange)="cambiarRol(usuario, $event)"
+                    [disabled]="usuario.estado === 'inactivo'"
+                    class="text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-churro disabled:opacity-50">
+                    <option value="cliente">Cliente</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </td>
+
+                <!-- Estado badge -->
+                <td class="px-6 py-4 text-center">
+                  <span [class]="usuario.estado === 'activo' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'"
+                    class="px-3 py-1 rounded-full text-xs font-semibold capitalize">
+                    {{ usuario.estado }}
+                  </span>
+                </td>
+
+                <!-- Acciones -->
+                <td class="px-6 py-4 text-center">
+                  @if (usuario.estado === 'activo') {
+                    <button (click)="desactivar(usuario)"
+                      class="btn-danger btn-sm" title="Desactivar usuario">
+                      <fa-icon [icon]="faBan"></fa-icon> Desactivar
+                    </button>
+                  } @else {
+                    <span class="text-xs text-gray-400 italic">Inactivo</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (usuarios().length === 0) {
+        <div class="text-center py-16 text-gray-400">
+          <fa-icon [icon]="faUsers" class="text-5xl mb-3"></fa-icon>
+          <p>No hay usuarios registrados</p>
+        </div>
+      }
+    </div>
+  }
+
+  @if (toastMsg()) {
+    <div class="fixed bottom-6 right-6 bg-chocolate text-crema px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold z-50">
+      <fa-icon [icon]="faSquareCheck" class="text-green-500"></fa-icon> {{ toastMsg() }}
+    </div>
+  }
+</div>
