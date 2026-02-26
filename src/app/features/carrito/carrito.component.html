@@ -1,10 +1,10 @@
 <div class="max-w-4xl mx-auto px-4 py-8">
-  <h1 class="text-3xl font-black text-chocolate mb-6">Tu Carrito</h1>
+  <h1 class="text-3xl font-black text-chocolate dark:text-crema mb-6">Tu Carrito</h1>
 
   @if (carrito.items().length === 0) {
     <div class="text-center py-20">
-      <fa-icon [icon]="faCartShopping" class="text-6xl mb-4"></fa-icon>
-      <p class="text-gray-500 text-xl font-medium mb-4">Tu carrito está vacío</p>
+      <fa-icon [icon]="faCartShopping" class="text-6xl mb-4 text-chocolate dark:text-crema"></fa-icon>
+      <p class="text-gray-500 dark:text-gray-300 text-xl font-medium mb-4">Tu carrito está vacío</p>
       <a routerLink="/menu" class="btn-chocolate inline-block">Ver el Menú</a>
     </div>
   }
@@ -17,7 +17,7 @@
         @for (item of carrito.items(); track item.producto.id) {
           <div class="card p-4 flex items-center gap-4">
             <!-- Imagen -->
-            <div class="w-16 h-16 bg-menta rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div class="w-16 h-16 bg-menta dark:bg-menta/30 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
               @if (item.producto.imagen_url) {
                 <img [src]="item.producto.imagen_url" [alt]="item.producto.nombre" class="w-full h-full object-cover">
               } @else {
@@ -27,17 +27,17 @@
 
             <!-- Info -->
             <div class="flex-1 min-w-0">
-              <p class="font-bold text-chocolate truncate">{{ item.producto.nombre }}</p>
-              <p class="text-sm text-gray-500">{{ item.producto.precio | currency:'EUR':'symbol':'1.2-2' }} / ud</p>
+              <p class="font-bold text-chocolate dark:text-crema truncate">{{ item.producto.nombre }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.producto.precio | currency:'EUR':'symbol':'1.2-2' }} / ud</p>
             </div>
 
             <!-- Cantidad -->
             <div class="flex items-center gap-2">
               <button (click)="carrito.actualizarCantidad(item.producto.id, item.cantidad - 1)"
-                class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 font-bold text-lg transition-colors flex items-center justify-center">
+                class="w-8 h-8 rounded-full bg-gray-100 dark:bg-dark-input hover:bg-gray-200 dark:hover:bg-dark-hover font-bold text-lg transition-colors flex items-center justify-center dark:text-crema">
                 -
               </button>
-              <span class="w-8 text-center font-bold text-chocolate">{{ item.cantidad }}</span>
+              <span class="w-8 text-center font-bold text-chocolate dark:text-crema">{{ item.cantidad }}</span>
               <button (click)="carrito.actualizarCantidad(item.producto.id, item.cantidad + 1)"
                 class="w-8 h-8 rounded-full bg-churro hover:bg-opacity-80 font-bold text-lg transition-colors flex items-center justify-center">
                 +
@@ -46,7 +46,7 @@
 
             <!-- Subtotal -->
             <div class="text-right min-w-[5rem]">
-              <p class="font-bold text-chocolate">{{ item.producto.precio * item.cantidad | currency:'EUR':'symbol':'1.2-2' }}</p>
+              <p class="font-bold text-chocolate dark:text-crema">{{ item.producto.precio * item.cantidad | currency:'EUR':'symbol':'1.2-2' }}</p>
             </div>
 
             <!-- Eliminar -->
@@ -66,14 +66,14 @@
       <div class="space-y-4">
         <!-- Resumen de precios -->
         <div class="card p-6">
-          <h2 class="font-black text-chocolate text-lg mb-4">Resumen</h2>
+          <h2 class="font-black text-chocolate dark:text-crema text-lg mb-4">Resumen</h2>
           <div class="space-y-2 text-sm">
-            <div class="flex justify-between text-gray-600">
+            <div class="flex justify-between text-gray-600 dark:text-gray-300">
               <span>{{ carrito.totalItems() }} artículo(s)</span>
               <span>{{ carrito.total() | currency:'EUR':'symbol':'1.2-2' }}</span>
             </div>
           </div>
-          <div class="border-t border-gray-100 mt-4 pt-4 flex justify-between font-black text-chocolate text-xl">
+          <div class="border-t border-gray-100 dark:border-dark-hover mt-4 pt-4 flex justify-between font-black text-chocolate dark:text-crema text-xl">
             <span>Total</span>
             <span>{{ carrito.total() | currency:'EUR':'symbol':'1.2-2' }}</span>
           </div>
@@ -81,7 +81,7 @@
 
         <!-- Formulario del pedido -->
         <div class="card p-6">
-          <h2 class="font-black text-chocolate text-lg mb-4">Datos del pedido</h2>
+          <h2 class="font-black text-chocolate dark:text-crema text-lg mb-4">Datos del pedido</h2>
 
           @if (errorMsg) {
             <div class="mb-3 bg-red-50 text-red-700 rounded-xl px-3 py-2 text-sm"><fa-icon [icon]="faCircleExclamation" class="mr-1"></fa-icon> {{ errorMsg }}</div>

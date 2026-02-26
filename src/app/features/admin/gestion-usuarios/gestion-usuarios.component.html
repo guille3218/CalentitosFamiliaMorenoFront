@@ -1,8 +1,8 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
   <div class="flex justify-between items-center mb-8">
     <div>
-      <h1 class="text-3xl font-black text-chocolate">Gestión de Usuarios</h1>
-      <p class="text-gray-500 mt-1">{{ usuarios().length }} usuarios registrados</p>
+      <h1 class="text-3xl font-black text-chocolate dark:text-crema">Gestión de Usuarios</h1>
+      <p class="text-gray-500 dark:text-gray-300 mt-1">{{ usuarios().length }} usuarios registrados</p>
     </div>
     <button (click)="cargarUsuarios()" class="btn-outline btn-sm">
       <fa-icon [icon]="faArrowsRotate"></fa-icon>
@@ -21,7 +21,7 @@
       <div class="overflow-x-auto">
         <table class="min-w-full">
           <thead>
-            <tr class="bg-chocolate text-crema">
+            <tr class="bg-chocolate dark:bg-churro text-crema dark:text-chocolate">
               <th class="px-6 py-4 text-left text-sm font-bold">ID</th>
               <th class="px-6 py-4 text-left text-sm font-bold">Nombre</th>
               <th class="px-6 py-4 text-left text-sm font-bold">Email</th>
@@ -31,30 +31,30 @@
               <th class="px-6 py-4 text-center text-sm font-bold">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-50">
+          <tbody class="divide-y divide-gray-50 dark:divide-dark-border">
             @for (usuario of usuarios(); track usuario.id) {
-              <tr class="hover:bg-crema transition-colors">
-                <td class="px-6 py-4 text-sm text-gray-400 font-mono">#{{ usuario.id }}</td>
+              <tr class="hover:bg-crema dark:hover:bg-dark-hover transition-colors">
+                <td class="px-6 py-4 text-sm text-gray-400 dark:text-gray-500 font-mono">#{{ usuario.id }}</td>
                 <td class="px-6 py-4">
                   <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 bg-menta rounded-full flex items-center justify-center flex-shrink-0">
-                      <span class="text-chocolate font-bold text-sm">{{ usuario.nombre[0] | uppercase }}</span>
+                    <div class="w-9 h-9 bg-menta dark:bg-menta/30 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span class="text-chocolate dark:text-churro font-bold text-sm">{{ usuario.nombre[0] | uppercase }}</span>
                     </div>
                     <div>
-                      <p class="text-sm font-bold text-chocolate">{{ usuario.nombre }} {{ usuario.apellidos }}</p>
-                      <p class="text-xs text-gray-400">{{ usuario.username }}</p>
+                      <p class="text-sm font-bold text-chocolate dark:text-crema">{{ usuario.nombre }} {{ usuario.apellidos }}</p>
+                      <p class="text-xs text-gray-400 dark:text-gray-500">{{ usuario.username }}</p>
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ usuario.email }}</td>
-                <td class="px-6 py-4 text-sm text-gray-500">{{ usuario.telefono || '-' }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">{{ usuario.email }}</td>
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">{{ usuario.telefono || '-' }}</td>
 
                 <!-- Rol: dropdown para cambiar -->
                 <td class="px-6 py-4 text-center">
                   <select [ngModel]="usuario.rol"
                     (ngModelChange)="cambiarRol(usuario, $event)"
                     [disabled]="usuario.estado === 'inactivo'"
-                    class="text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-churro disabled:opacity-50">
+                    class="text-xs border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-input text-chocolate dark:text-crema rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-churro disabled:opacity-50">
                     <option value="cliente">Cliente</option>
                     <option value="admin">Admin</option>
                   </select>
@@ -62,7 +62,7 @@
 
                 <!-- Estado badge -->
                 <td class="px-6 py-4 text-center">
-                  <span [class]="usuario.estado === 'activo' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'"
+                  <span [class]="usuario.estado === 'activo' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'"
                     class="px-3 py-1 rounded-full text-xs font-semibold capitalize">
                     {{ usuario.estado }}
                   </span>
@@ -86,7 +86,7 @@
       </div>
 
       @if (usuarios().length === 0) {
-        <div class="text-center py-16 text-gray-400">
+        <div class="text-center py-16 text-gray-400 dark:text-gray-500">
           <fa-icon [icon]="faUsers" class="text-5xl mb-3"></fa-icon>
           <p>No hay usuarios registrados</p>
         </div>

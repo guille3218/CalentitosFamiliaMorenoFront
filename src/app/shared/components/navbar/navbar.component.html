@@ -84,6 +84,20 @@
           }
         </div>
 
+        <!-- Botón modo oscuro -->
+        <button (click)="theme.toggle()"
+          title="{{ theme.isDark() ? 'Modo claro' : 'Modo oscuro' }}"
+          class="p-2 w-10 h-10 rounded-full text-crema hover:bg-white/10 transition-all duration-200 active:scale-90 flex items-center justify-center">
+          <div class="transition-transform duration-300"
+            [style.transform]="theme.isDark() ? 'rotate(0deg)' : 'rotate(-180deg)'">
+            @if (theme.isDark()) {
+              <fa-icon [icon]="faSun" class="text-xl text-yellow-300"></fa-icon>
+            } @else {
+              <fa-icon [icon]="faMoon" class="text-xl"></fa-icon>
+            }
+          </div>
+        </button>
+
         <!-- Botón Menú Móvil -->
         <button (click)="toggleMobileMenu()" class="md:hidden p-2 text-crema hover:text-churro transition-colors ml-1 text-2xl">
           @if (!isMobileMenuOpen) {

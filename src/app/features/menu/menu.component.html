@@ -2,8 +2,8 @@
 
   <!-- Hero Header -->
   <div class="text-center mb-10">
-    <h1 class="text-4xl sm:text-5xl font-black text-chocolate mb-2">Nuestro Menú</h1>
-    <p class="text-gray-500 text-lg">Churros y chocolate hechos con amor <fa-icon [icon]="faHeart" class="text-chocolate"></fa-icon></p>
+    <h1 class="text-4xl sm:text-5xl font-black text-chocolate dark:text-crema mb-2">Nuestro Menú</h1>
+    <p class="text-gray-500 dark:text-gray-300 text-lg">Churros y chocolate hechos con amor <fa-icon [icon]="faHeart" class="text-chocolate dark:text-churro"></fa-icon></p>
   </div>
 
   <!-- Filtro por categoría -->
@@ -12,6 +12,7 @@
       [class.bg-chocolate]="categoriaActual() === ''"
       [class.text-crema]="categoriaActual() === ''"
       [class.bg-white]="categoriaActual() !== ''"
+      [class.dark:bg-dark-card]="categoriaActual() !== ''"
       class="px-4 py-2 rounded-full text-sm font-semibold border border-chocolate hover:bg-chocolate hover:text-crema transition-all">
       Todos
     </button>
@@ -20,6 +21,7 @@
         [class.bg-chocolate]="categoriaActual() === cat"
         [class.text-crema]="categoriaActual() === cat"
         [class.bg-white]="categoriaActual() !== cat"
+        [class.dark:bg-dark-card]="categoriaActual() !== cat"
         class="px-4 py-2 rounded-full text-sm font-semibold border border-chocolate hover:bg-chocolate hover:text-crema transition-all">
         {{ cat }}
       </button>
@@ -49,7 +51,7 @@
         <div class="card overflow-hidden flex flex-col group">
 
           <!-- Imagen -->
-          <div class="relative bg-menta bg-opacity-30 h-44 flex items-center justify-center overflow-hidden">
+          <div class="relative bg-menta dark:bg-menta/30 bg-opacity-30 h-44 flex items-center justify-center overflow-hidden">
             @if (producto.imagen_url) {
               <img [src]="producto.imagen_url" [alt]="producto.nombre"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -70,16 +72,16 @@
 
           <!-- Contenido -->
           <div class="p-4 flex flex-col flex-1">
-            <h3 class="font-bold text-chocolate text-base leading-tight mb-1">{{ producto.nombre }}</h3>
+            <h3 class="font-bold text-chocolate dark:text-churro text-base leading-tight mb-1">{{ producto.nombre }}</h3>
             @if (producto.descripcion) {
-              <p class="text-gray-500 text-sm mb-3 flex-1 line-clamp-2">{{ producto.descripcion }}</p>
+              <p class="text-gray-500 dark:text-gray-300 text-sm mb-3 flex-1 line-clamp-2">{{ producto.descripcion }}</p>
             }
             @if (producto.stock_actual !== undefined) {
-              <p class="text-xs text-gray-400 mb-2">Stock: {{ producto.stock_actual }}</p>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Stock: {{ producto.stock_actual }}</p>
             }
 
             <div class="flex items-center justify-between mt-auto">
-              <span class="text-2xl font-black text-chocolate">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</span>
+              <span class="text-2xl font-black text-chocolate dark:text-crema">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</span>
 
               <!-- Acciones cliente -->
               @if (auth.isLoggedIn() && !auth.isAdmin()) {
@@ -108,7 +110,7 @@
     </div>
 
     @if (productosFiltrados().length === 0 && !loading()) {
-      <div class="text-center py-16 text-gray-400">
+      <div class="text-center py-16 text-gray-400 dark:text-gray-500">
         <fa-icon [icon]="faCookieBite" class="text-5xl mb-4"></fa-icon>
         <p class="text-lg font-medium">No hay productos disponibles</p>
       </div>
@@ -125,13 +127,13 @@
   <!-- Modal Crear/Editar (Admin) -->
   @if (mostrarModal()) {
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-8 max-h-screen overflow-y-auto">
+      <div class="bg-white dark:bg-dark-input rounded-3xl shadow-2xl w-full max-w-lg p-8 max-h-screen overflow-y-auto border dark:border-dark-hover">
 
         <div class="flex justify-between items-center mb-6">
-          <h2 class="text-2xl font-black text-chocolate">
+          <h2 class="text-2xl font-black text-chocolate dark:text-crema">
             {{ editandoProducto() ? 'Editar Producto' : 'Nuevo Producto' }}
           </h2>
-          <button (click)="cerrarModal()" class="text-gray-400 hover:text-chocolate text-2xl">&times;</button>
+          <button (click)="cerrarModal()" class="text-gray-400 dark:text-gray-500 hover:text-chocolate dark:hover:text-crema text-2xl">&times;</button>
         </div>
 
         <form [formGroup]="productoForm" (ngSubmit)="guardarProducto()" class="space-y-4">

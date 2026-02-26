@@ -8,6 +8,9 @@
   body {
     @apply bg-crema font-sans text-chocolate transition-colors duration-300;
   }
+  .dark body {
+    @apply bg-dark-bg text-crema;
+  }
 
   * {
     box-sizing: border-box;
@@ -19,11 +22,17 @@
   .btn-chocolate {
     @apply bg-chocolate text-crema font-semibold py-2 px-5 rounded-xl hover:bg-opacity-90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
   }
+  .dark .btn-chocolate {
+    @apply bg-churro text-chocolate;
+  }
   .btn-churro {
     @apply bg-churro text-chocolate font-semibold py-2 px-5 rounded-xl hover:bg-opacity-90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
   }
   .btn-outline {
     @apply border-2 border-chocolate text-chocolate font-semibold py-2 px-5 rounded-xl hover:bg-chocolate hover:text-crema transition-all duration-200 active:scale-95;
+  }
+  .dark .btn-outline {
+    @apply border-crema text-crema hover:bg-crema hover:text-chocolate;
   }
   .btn-danger {
     @apply bg-red-600 text-white font-semibold py-2 px-5 rounded-xl hover:bg-red-700 transition-all duration-200 active:scale-95;
@@ -36,13 +45,26 @@
   .card {
     @apply bg-white rounded-2xl shadow-sm border border-crema hover:shadow-md transition-shadow duration-200;
   }
+  .dark .card {
+    @apply bg-dark-card border-dark-border text-crema;
+  }
+
+  .dark .card h3 {
+    @apply text-churro;
+  }
 
   /* Inputs */
   .input-field {
     @apply w-full border border-gray-200 rounded-xl px-4 py-2.5 text-chocolate placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-churro focus:border-transparent transition-all duration-200;
   }
+  .dark .input-field {
+    @apply bg-dark-input border-dark-border text-crema placeholder-gray-500 focus:ring-churro;
+  }
   .label-field {
     @apply block text-sm font-semibold text-chocolate mb-1;
+  }
+  .dark .label-field {
+    @apply text-crema;
   }
 
   /* Badges de estado de pedidos */

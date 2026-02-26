@@ -1,5 +1,5 @@
 <div class="max-w-4xl mx-auto px-4 py-8">
-  <h1 class="text-3xl font-black text-chocolate mb-6">Mis Pedidos</h1>
+  <h1 class="text-3xl font-black text-chocolate dark:text-crema mb-6">Mis Pedidos</h1>
 
   @if (loading()) {
     <div class="flex justify-center py-16">
@@ -10,7 +10,7 @@
   @if (!loading() && pedidos().length === 0) {
     <div class="text-center py-20">
       <fa-icon [icon]="faBoxOpen" class="text-5xl mb-4"></fa-icon>
-      <p class="text-gray-500 text-xl font-medium mb-4">Aún no tienes pedidos</p>
+      <p class="text-gray-500 dark:text-gray-300 text-xl font-medium mb-4">Aún no tienes pedidos</p>
       <a routerLink="/menu" class="btn-chocolate inline-block">Ir al Menú</a>
     </div>
   }
@@ -23,18 +23,18 @@
           <!-- Info pedido -->
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1">
-              <span class="font-black text-chocolate">{{ pedido.numero_pedido }}</span>
+              <span class="font-black text-chocolate dark:text-crema">{{ pedido.numero_pedido }}</span>
               <span [class]="getBadgeClass(pedido.estado)" class="capitalize">{{ pedido.estado }}</span>
             </div>
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
               {{ pedido.fecha_creacion ? (pedido.fecha_creacion | date:'dd/MM/yyyy HH:mm') : '' }}
             </p>
-            <p class="text-sm text-gray-500 capitalize">{{ pedido.metodo_pago }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ pedido.metodo_pago }}</p>
           </div>
 
           <!-- Total -->
           <div class="text-right">
-            <p class="text-2xl font-black text-chocolate">{{ pedido.total | currency:'EUR':'symbol':'1.2-2' }}</p>
+            <p class="text-2xl font-black text-chocolate dark:text-crema">{{ pedido.total | currency:'EUR':'symbol':'1.2-2' }}</p>
           </div>
 
           <!-- Ver detalle -->

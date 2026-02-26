@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-crema flex items-center justify-center px-4 py-12">
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
   <div class="w-full max-w-md">
 
     <!-- Logo Header -->
@@ -6,12 +6,12 @@
       <div class="w-20 h-20 bg-chocolate rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
         <img src="assets/img/logo.png" alt="Logo">
       </div>
-      <h1 class="text-3xl font-black text-chocolate">¡Bienvenido!</h1>
-      <p class="text-gray-500 mt-1">Inicia sesión para pedir tus calentitos</p>
+      <h1 class="text-3xl font-black text-chocolate dark:text-crema">¡Bienvenido!</h1>
+      <p class="text-gray-500 dark:text-gray-300 mt-1">Inicia sesión para pedir tus calentitos</p>
     </div>
 
     <!-- Card -->
-    <div class="bg-white rounded-3xl shadow-lg p-8">
+    <div class="bg-white dark:bg-dark-input rounded-3xl shadow-lg p-8 border dark:border-dark-hover">
 
       @if (errorMsg) {
         <div class="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
@@ -56,7 +56,7 @@
         </button>
       </form>
 
-      <p class="text-center text-sm text-gray-500 mt-6">
+      <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
         ¿No tienes cuenta?
         <a routerLink="/register" class="text-churro font-bold hover:underline">Regístrate aquí</a>
       </p>

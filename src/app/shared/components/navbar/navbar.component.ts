@@ -3,7 +3,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { CarritoService } from '../../../core/services/carrito.service';
-import { faArrowRightFromBracket, faCartShopping, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { ThemeService } from '../../../core/services/theme.service';
+import { faArrowRightFromBracket, faCartShopping, faBars, faXmark, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -15,12 +16,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 export class NavbarComponent {
   auth = inject(AuthService);
   carrito = inject(CarritoService);
+  theme = inject(ThemeService);
 
   // Icons
   faArrowRightFromBracket = faArrowRightFromBracket;
   faCartShopping = faCartShopping;
   faBars = faBars;
   faXmark = faXmark;
+  faSun = faSun;
+  faMoon = faMoon;
 
   isMobileMenuOpen = false;
 
