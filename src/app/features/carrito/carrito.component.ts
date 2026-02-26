@@ -5,13 +5,14 @@ import { Router, RouterLink } from '@angular/router';
 import { CarritoService } from '../../core/services/carrito.service';
 import { PedidoService } from '../../core/services/pedido.service';
 import { CrearPedidoRequest } from '../../core/interfaces/pedido.interface';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faCookieBite, faXmark, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { TranslocoModule } from '@jsverse/transloco';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-carrito',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, FontAwesomeModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FontAwesomeModule, TranslocoModule],
   templateUrl: './carrito.component.html',
 })
 export class CarritoComponent {

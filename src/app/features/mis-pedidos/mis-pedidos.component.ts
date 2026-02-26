@@ -5,11 +5,12 @@ import { PedidoService } from '../../core/services/pedido.service';
 import { Pedido } from '../../core/interfaces/pedido.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-mis-pedidos',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule],
+  imports: [CommonModule, RouterLink, FontAwesomeModule, TranslocoModule],
   templateUrl: './mis-pedidos.component.html',
 })
 export class MisPedidosComponent implements OnInit {

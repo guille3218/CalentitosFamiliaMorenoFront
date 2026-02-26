@@ -5,11 +5,12 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { Usuario, RolUsuario } from '../../../core/interfaces/usuario.interface';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { faArrowsRotate, faBan, faSquareCheck, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-gestion-usuarios',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, TranslocoModule],
   templateUrl: './gestion-usuarios.component.html',
 })
 export class GestionUsuariosComponent implements OnInit {

@@ -5,11 +5,12 @@ import { PedidoService } from '../../../core/services/pedido.service';
 import { Pedido, EstadoPedido } from '../../../core/interfaces/pedido.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowsRotate, faBoxOpen, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-gestion-pedidos',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, TranslocoModule],
   templateUrl: './gestion-pedidos.component.html',
 })
 export class GestionPedidosComponent implements OnInit {

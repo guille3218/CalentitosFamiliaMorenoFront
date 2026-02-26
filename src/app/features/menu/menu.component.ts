@@ -6,13 +6,14 @@ import { CarritoService } from '../../core/services/carrito.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Producto, ProductoRequest } from '../../core/interfaces/producto.interface';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faBan, faCookieBite, faPlus, faSquare, faSquareCheck, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCookieBite, faPlus, faSquareCheck, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule, TranslocoModule],
   templateUrl: './menu.component.html',
 })
 export class MenuComponent implements OnInit {

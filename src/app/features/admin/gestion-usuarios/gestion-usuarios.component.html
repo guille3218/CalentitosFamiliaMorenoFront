@@ -1,12 +1,12 @@
-<div class="max-w-7xl mx-auto px-4 py-8">
+<div class="max-w-7xl mx-auto px-4 py-8" *transloco="let t">
   <div class="flex justify-between items-center mb-8">
     <div>
-      <h1 class="text-3xl font-black text-chocolate dark:text-crema">Gestión de Usuarios</h1>
-      <p class="text-gray-500 dark:text-gray-300 mt-1">{{ usuarios().length }} usuarios registrados</p>
+      <h1 class="text-3xl font-black text-chocolate dark:text-crema">{{ t('ADMIN_USERS.TITLE') }}</h1>
+      <p class="text-gray-500 dark:text-gray-300 mt-1">{{ usuarios().length }} {{ t('ADMIN_USERS.REGISTERED_USERS') }}</p>
     </div>
     <button (click)="cargarUsuarios()" class="btn-outline btn-sm">
       <fa-icon [icon]="faArrowsRotate"></fa-icon>
-      Actualizar
+      {{ t('ADMIN_USERS.UPDATE') }}
     </button>
   </div>
 
@@ -22,13 +22,13 @@
         <table class="min-w-full">
           <thead>
             <tr class="bg-chocolate dark:bg-churro text-crema dark:text-chocolate">
-              <th class="px-6 py-4 text-left text-sm font-bold">ID</th>
-              <th class="px-6 py-4 text-left text-sm font-bold">Nombre</th>
-              <th class="px-6 py-4 text-left text-sm font-bold">Email</th>
-              <th class="px-6 py-4 text-left text-sm font-bold">Teléfono</th>
-              <th class="px-6 py-4 text-center text-sm font-bold">Rol</th>
-              <th class="px-6 py-4 text-center text-sm font-bold">Estado</th>
-              <th class="px-6 py-4 text-center text-sm font-bold">Acciones</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_USERS.ID') }}</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_USERS.NAME') }}</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_USERS.EMAIL') }}</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_USERS.PHONE') }}</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">{{ t('ADMIN_USERS.ROLE') }}</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">{{ t('ADMIN_USERS.STATUS') }}</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">{{ t('ADMIN_USERS.ACTIONS') }}</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-50 dark:divide-dark-border">
@@ -55,8 +55,8 @@
                     (ngModelChange)="cambiarRol(usuario, $event)"
                     [disabled]="usuario.estado === 'inactivo'"
                     class="text-xs border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-input text-chocolate dark:text-crema rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-churro disabled:opacity-50">
-                    <option value="cliente">Cliente</option>
-                    <option value="admin">Admin</option>
+                    <option value="cliente">{{ t('ADMIN_USERS.ROLE_CLIENT') }}</option>
+                    <option value="admin">{{ t('ADMIN_USERS.ROLE_ADMIN') }}</option>
                   </select>
                 </td>
 
@@ -64,7 +64,7 @@
                 <td class="px-6 py-4 text-center">
                   <span [class]="usuario.estado === 'activo' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'"
                     class="px-3 py-1 rounded-full text-xs font-semibold capitalize">
-                    {{ usuario.estado }}
+                    {{ t('STATUS.' + (usuario.estado | uppercase)) }}
                   </span>
                 </td>
 
@@ -72,11 +72,11 @@
                 <td class="px-6 py-4 text-center">
                   @if (usuario.estado === 'activo') {
                     <button (click)="desactivar(usuario)"
-                      class="btn-danger btn-sm" title="Desactivar usuario">
-                      <fa-icon [icon]="faBan"></fa-icon> Desactivar
+                      class="btn-danger btn-sm" [title]="t('ADMIN_USERS.DEACTIVATE_USER')">
+                      <fa-icon [icon]="faBan"></fa-icon> {{ t('ADMIN_USERS.DEACTIVATE') }}
                     </button>
                   } @else {
-                    <span class="text-xs text-gray-400 italic">Inactivo</span>
+                    <span class="text-xs text-gray-400 italic">{{ t('ADMIN_USERS.INACTIVE') }}</span>
                   }
                 </td>
               </tr>
@@ -88,7 +88,7 @@
       @if (usuarios().length === 0) {
         <div class="text-center py-16 text-gray-400 dark:text-gray-500">
           <fa-icon [icon]="faUsers" class="text-5xl mb-3"></fa-icon>
-          <p>No hay usuarios registrados</p>
+          <p>{{ t('ADMIN_USERS.NO_USERS_REG') }}</p>
         </div>
       }
     </div>

@@ -6,11 +6,12 @@ import { AuthService } from '../../../core/services/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, FontAwesomeModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FontAwesomeModule, TranslocoModule],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

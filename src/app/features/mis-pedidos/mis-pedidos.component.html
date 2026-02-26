@@ -1,5 +1,5 @@
-<div class="max-w-4xl mx-auto px-4 py-8">
-  <h1 class="text-3xl font-black text-chocolate dark:text-crema mb-6">Mis Pedidos</h1>
+<div class="max-w-4xl mx-auto px-4 py-8" *transloco="let t">
+  <h1 class="text-3xl font-black text-chocolate dark:text-crema mb-6">{{ t('MY_ORDERS.TITLE') }}</h1>
 
   @if (loading()) {
     <div class="flex justify-center py-16">
@@ -10,8 +10,8 @@
   @if (!loading() && pedidos().length === 0) {
     <div class="text-center py-20">
       <fa-icon [icon]="faBoxOpen" class="text-5xl mb-4"></fa-icon>
-      <p class="text-gray-500 dark:text-gray-300 text-xl font-medium mb-4">Aún no tienes pedidos</p>
-      <a routerLink="/menu" class="btn-chocolate inline-block">Ir al Menú</a>
+      <p class="text-gray-500 dark:text-gray-300 text-xl font-medium mb-4">{{ t('MY_ORDERS.NO_ORDERS') }}</p>
+      <a routerLink="/menu" class="btn-chocolate inline-block">{{ t('MY_ORDERS.GO_TO_MENU') }}</a>
     </div>
   }
 
@@ -24,12 +24,14 @@
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1">
               <span class="font-black text-chocolate dark:text-crema">{{ pedido.numero_pedido }}</span>
-              <span [class]="getBadgeClass(pedido.estado)" class="capitalize">{{ pedido.estado }}</span>
+              <span [class]="getBadgeClass(pedido.estado)" class="capitalize">{{ t('STATUS.' + (pedido.estado | uppercase)) }}</span>
             </div>
             <p class="text-sm text-gray-500 dark:text-gray-400">
               {{ pedido.fecha_creacion ? (pedido.fecha_creacion | date:'dd/MM/yyyy HH:mm') : '' }}
             </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ pedido.metodo_pago }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 capitalize">
+              {{ pedido.metodo_pago === 'efectivo' ? t('CART.CASH') : pedido.metodo_pago === 'tarjeta' ? t('CART.CARD') : t('CART.BIZUM') }}
+            </p>
           </div>
 
           <!-- Total -->
@@ -40,7 +42,7 @@
           <!-- Ver detalle -->
           <a [routerLink]="['/mis-pedidos', pedido.id]"
             class="btn-outline btn-sm whitespace-nowrap">
-            Ver detalle →
+            {{ t('MY_ORDERS.VIEW_DETAIL') }}
           </a>
         </div>
       }

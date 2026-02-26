@@ -1,12 +1,12 @@
-<div class="max-w-7xl mx-auto px-4 py-8">
+<div class="max-w-7xl mx-auto px-4 py-8" *transloco="let t">
   <div class="flex justify-between items-center mb-8">
     <div>
-      <h1 class="text-3xl font-black text-chocolate dark:text-crema">Gestión de Pedidos</h1>
-      <p class="text-gray-500 dark:text-gray-300 mt-1">Administra y actualiza el estado de todos los pedidos</p>
+      <h1 class="text-3xl font-black text-chocolate dark:text-crema">{{ t('ADMIN_ORDERS.TITLE') }}</h1>
+      <p class="text-gray-500 dark:text-gray-300 mt-1">{{ t('ADMIN_ORDERS.SUBTITLE') }}</p>
     </div>
     <button (click)="cargarPedidos()" class="btn-outline btn-sm">
       <fa-icon [icon]="faArrowsRotate"></fa-icon>
-      Actualizar
+      {{ t('ADMIN_ORDERS.UPDATE') }}
     </button>
   </div>
 
@@ -22,7 +22,7 @@
       @for (estado of estados; track estado.value) {
         <div class="bg-white dark:bg-dark-input rounded-2xl p-4 text-center shadow-sm border border-crema dark:border-dark-hover">
           <p class="text-2xl font-black text-chocolate dark:text-crema">{{ contarEstado(estado.value) }}</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1 capitalize">{{ estado.label }}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1 capitalize">{{ t('STATUS.' + (estado.value | uppercase)) }}</p>
         </div>
       }
     </div>
@@ -33,12 +33,12 @@
         <table class="min-w-full">
           <thead>
             <tr class="bg-chocolate dark:bg-churro text-crema dark:text-chocolate">
-              <th class="px-6 py-4 text-left text-sm font-bold">Nº Pedido</th>
-              <th class="px-6 py-4 text-left text-sm font-bold">Cliente</th>
-              <th class="px-6 py-4 text-left text-sm font-bold">Fecha</th>
-              <th class="px-6 py-4 text-right text-sm font-bold">Total</th>
-              <th class="px-6 py-4 text-center text-sm font-bold">Estado Actual</th>
-              <th class="px-6 py-4 text-center text-sm font-bold">Cambiar Estado</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_ORDERS.ORDER_NUMBER') }}</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_ORDERS.CUSTOMER') }}</th>
+              <th class="px-6 py-4 text-left text-sm font-bold">{{ t('ADMIN_ORDERS.DATE') }}</th>
+              <th class="px-6 py-4 text-right text-sm font-bold">{{ t('ADMIN_ORDERS.TOTAL') }}</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">{{ t('ADMIN_ORDERS.CURRENT_STATUS') }}</th>
+              <th class="px-6 py-4 text-center text-sm font-bold">{{ t('ADMIN_ORDERS.CHANGE_STATUS') }}</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-50 dark:divide-dark-border">
@@ -58,7 +58,7 @@
                   {{ pedido.total | currency:'EUR':'symbol':'1.2-2' }}
                 </td>
                 <td class="px-6 py-4 text-center">
-                  <span [class]="getBadgeClass(pedido.estado)" class="capitalize">{{ pedido.estado }}</span>
+                  <span [class]="getBadgeClass(pedido.estado)" class="capitalize">{{ t('STATUS.' + (pedido.estado | uppercase)) }}</span>
                 </td>
                 <td class="px-6 py-4 text-center">
                   <select [ngModel]="pedido.estado"
@@ -66,7 +66,7 @@
                     [disabled]="pedido.estado === 'cancelado' || pedido.estado === 'completado'"
                     class="text-sm border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-input text-chocolate dark:text-crema rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-churro disabled:opacity-50 disabled:cursor-not-allowed">
                     @for (est of estados; track est.value) {
-                      <option [value]="est.value">{{ est.label }}</option>
+                      <option [value]="est.value">{{ t('STATUS.' + (est.value | uppercase)) }}</option>
                     }
                   </select>
                 </td>
@@ -79,7 +79,7 @@
       @if (pedidos().length === 0) {
         <div class="text-center py-16 text-gray-400 dark:text-gray-500">
           <fa-icon [icon]="faBoxOpen" class="text-5xl mb-3"></fa-icon>
-          <p>No hay pedidos registrados</p>
+          <p>{{ t('ADMIN_ORDERS.NO_ORDERS_REG') }}</p>
         </div>
       }
     </div>

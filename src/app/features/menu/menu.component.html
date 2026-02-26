@@ -1,9 +1,9 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" *transloco="let t">
 
   <!-- Hero Header -->
   <div class="text-center mb-10">
-    <h1 class="text-4xl sm:text-5xl font-black text-chocolate dark:text-crema mb-2">Nuestro Menú</h1>
-    <p class="text-gray-500 dark:text-gray-300 text-lg">Churros y chocolate hechos con amor <fa-icon [icon]="faHeart" class="text-chocolate dark:text-churro"></fa-icon></p>
+    <h1 class="text-4xl sm:text-5xl font-black text-chocolate dark:text-crema mb-2">{{ t('MENU.TITLE') }}</h1>
+    <p class="text-gray-500 dark:text-gray-300 text-lg">{{ t('MENU.SUBTITLE') }}<fa-icon [icon]="faHeart" class="text-chocolate dark:text-churro"></fa-icon></p>
   </div>
 
   <!-- Filtro por categoría -->
@@ -14,7 +14,7 @@
       [class.bg-white]="categoriaActual() !== ''"
       [class.dark:bg-dark-card]="categoriaActual() !== ''"
       class="px-4 py-2 rounded-full text-sm font-semibold border border-chocolate hover:bg-chocolate hover:text-crema transition-all">
-      Todos
+      {{ t('MENU.ALL_CATEGORIES') }}
     </button>
     @for (cat of categorias(); track cat) {
       <button (click)="filtrarCategoria(cat)"
@@ -32,7 +32,7 @@
   @if (auth.isAdmin()) {
     <div class="flex justify-end mb-6">
       <button (click)="abrirModal()" class="btn-churro">
-        <fa-icon [icon]="faPlus"></fa-icon> Nuevo Producto
+        <fa-icon [icon]="faPlus"></fa-icon> {{ t('MENU.NEW_PRODUCT') }}
       </button>
     </div>
   }
@@ -60,7 +60,7 @@
             }
             <!-- Badge estado inactivo (admin) -->
             @if (producto.estado === 'inactivo') {
-              <span class="absolute top-2 right-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">Inactivo</span>
+              <span class="absolute top-2 right-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">{{ t('MENU.INACTIVE') }}</span>
             }
             <!-- Badge categoría -->
             @if (producto.categoria) {
@@ -77,7 +77,7 @@
               <p class="text-gray-500 dark:text-gray-300 text-sm mb-3 flex-1 line-clamp-2">{{ producto.descripcion }}</p>
             }
             @if (producto.stock_actual !== undefined) {
-              <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Stock: {{ producto.stock_actual }}</p>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">{{ t('MENU.STOCK') }}: {{ producto.stock_actual }}</p>
             }
 
             <div class="flex items-center justify-between mt-auto">
@@ -112,7 +112,7 @@
     @if (productosFiltrados().length === 0 && !loading()) {
       <div class="text-center py-16 text-gray-400 dark:text-gray-500">
         <fa-icon [icon]="faCookieBite" class="text-5xl mb-4"></fa-icon>
-        <p class="text-lg font-medium">No hay productos disponibles</p>
+        <p class="text-lg font-medium">{{ t('MENU.NO_PRODUCTS') }}</p>
       </div>
     }
   }
@@ -131,7 +131,7 @@
 
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-2xl font-black text-chocolate dark:text-crema">
-            {{ editandoProducto() ? 'Editar Producto' : 'Nuevo Producto' }}
+            {{ editandoProducto() ? t('MENU.EDIT_PRODUCT') : t('MENU.NEW_PRODUCT') }}
           </h2>
           <button (click)="cerrarModal()" class="text-gray-400 dark:text-gray-500 hover:text-chocolate dark:hover:text-crema text-2xl">&times;</button>
         </div>
@@ -139,46 +139,46 @@
         <form [formGroup]="productoForm" (ngSubmit)="guardarProducto()" class="space-y-4">
 
           <div>
-            <label class="label-field">Nombre *</label>
-            <input type="text" formControlName="nombre" class="input-field" placeholder="Churro con chocolate">
+            <label class="label-field">{{ t('MENU.NAME') }} *</label>
+            <input type="text" formControlName="nombre" class="input-field" [placeholder]="t('MENU.PLACEHOLDER_NAME')">
           </div>
 
           <div>
-            <label class="label-field">Descripción</label>
-            <textarea formControlName="descripcion" class="input-field resize-none h-20" placeholder="Descripción del producto..."></textarea>
+            <label class="label-field">{{ t('MENU.DESCRIPTION') }}</label>
+            <textarea formControlName="descripcion" class="input-field resize-none h-20" [placeholder]="t('MENU.PLACEHOLDER_DESC')"></textarea>
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="label-field">Precio (€) *</label>
+              <label class="label-field">{{ t('MENU.PRICE') }} *</label>
               <input type="number" step="0.01" formControlName="precio" class="input-field" placeholder="2.50">
             </div>
             <div>
-              <label class="label-field">Stock</label>
+              <label class="label-field">{{ t('MENU.STOCK') }}</label>
               <input type="number" formControlName="stock_actual" class="input-field" placeholder="50">
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="label-field">Categoría</label>
-              <input type="text" formControlName="categoria" class="input-field" placeholder="Churros">
+              <label class="label-field">{{ t('MENU.CATEGORY') }}</label>
+              <input type="text" formControlName="categoria" class="input-field" [placeholder]="t('MENU.PLACEHOLDER_CATEGORY')">
             </div>
             <div>
-              <label class="label-field">Código SKU</label>
-              <input type="text" formControlName="codigo_sku" class="input-field" placeholder="CHU-001">
+              <label class="label-field">{{ t('MENU.SKU') }}</label>
+              <input type="text" formControlName="codigo_sku" class="input-field" [placeholder]="t('MENU.PLACEHOLDER_SKU')">
             </div>
           </div>
 
           <div>
-            <label class="label-field">URL Imagen</label>
+            <label class="label-field">{{ t('MENU.IMAGE_URL') }}</label>
             <input type="url" formControlName="imagen_url" class="input-field" placeholder="https://...">
           </div>
 
           <div class="flex justify-end gap-3 pt-4">
-            <button type="button" (click)="cerrarModal()" class="btn-outline">Cancelar</button>
+            <button type="button" (click)="cerrarModal()" class="btn-outline">{{ t('MENU.CANCEL') }}</button>
             <button type="submit" [disabled]="productoForm.invalid || guardando()" class="btn-churro disabled:opacity-60">
-              {{ guardando() ? 'Guardando…' : 'Guardar' }}
+              {{ guardando() ? t('MENU.SAVING') : t('MENU.SAVE') }}
             </button>
           </div>
         </form>

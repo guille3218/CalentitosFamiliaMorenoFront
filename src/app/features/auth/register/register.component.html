@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center px-4 py-12">
+<div class="min-h-screen flex items-center justify-center px-4 py-12" *transloco="let t">
   <div class="w-full max-w-lg">
 
     <!-- Header -->
@@ -6,8 +6,8 @@
       <div class="w-20 h-20 bg-chocolate rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
         <img src="assets/img/logo.png" alt="Logo">
       </div>
-      <h1 class="text-3xl font-black text-chocolate dark:text-crema">Únete a Calentitos</h1>
-      <p class="text-gray-500 dark:text-gray-300 mt-1">Crea tu cuenta y empieza a pedir</p>
+      <h1 class="text-3xl font-black text-chocolate dark:text-crema">{{ t('AUTH.REG_TITLE') }}</h1>
+      <p class="text-gray-500 dark:text-gray-300 mt-1">{{ t('AUTH.REG_SUBTITLE') }}</p>
     </div>
 
     <!-- Card -->
@@ -23,53 +23,53 @@
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="label-field">Nombre *</label>
-            <input type="text" formControlName="nombre" class="input-field" placeholder="Juan">
+            <label class="label-field">{{ t('AUTH.NAME') }} *</label>
+            <input type="text" formControlName="nombre" class="input-field" [placeholder]="t('AUTH.PLACEHOLDER_NAME')">
             @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
-              <p class="text-red-500 text-xs mt-1">Requerido</p>
+              <p class="text-red-500 text-xs mt-1">{{ t('AUTH.REQUIRED') }}</p>
             }
           </div>
           <div>
-            <label class="label-field">Apellidos</label>
-            <input type="text" formControlName="apellidos" class="input-field" placeholder="García López">
+            <label class="label-field">{{ t('AUTH.LAST_NAME') }}</label>
+            <input type="text" formControlName="apellidos" class="input-field" [placeholder]="t('AUTH.PLACEHOLDER_LAST_NAME')">
           </div>
         </div>
 
         <div>
-          <label class="label-field">Email *</label>
-          <input type="email" formControlName="email" class="input-field" placeholder="juan@ejemplo.com">
+          <label class="label-field">{{ t('AUTH.EMAIL') }} *</label>
+          <input type="email" formControlName="email" class="input-field" [placeholder]="t('AUTH.PLACEHOLDER_EMAIL')">
           @if (form.get('email')?.invalid && form.get('email')?.touched) {
-            <p class="text-red-500 text-xs mt-1">Email válido requerido</p>
+            <p class="text-red-500 text-xs mt-1">{{ t('AUTH.REQ_EMAIL') }}</p>
           }
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="label-field">Teléfono</label>
-            <input type="tel" formControlName="telefono" class="input-field" placeholder="612345678">
+            <label class="label-field">{{ t('AUTH.PHONE') }}</label>
+            <input type="tel" formControlName="telefono" class="input-field" [placeholder]="t('AUTH.PLACEHOLDER_PHONE')">
           </div>
           <div>
-            <label class="label-field">Dirección</label>
-            <input type="text" formControlName="direccion" class="input-field" placeholder="Calle Mayor 1">
+            <label class="label-field">{{ t('AUTH.ADDRESS') }}</label>
+            <input type="text" formControlName="direccion" class="input-field" [placeholder]="t('AUTH.PLACEHOLDER_ADDRESS')">
           </div>
         </div>
 
         <div>
-          <label class="label-field">Usuario *</label>
-          <input type="text" formControlName="username" class="input-field" placeholder="juangarcia" autocomplete="username">
+          <label class="label-field">{{ t('AUTH.USERNAME') }} *</label>
+          <input type="text" formControlName="username" class="input-field" [placeholder]="t('AUTH.PLACEHOLDER_USER_REG')" autocomplete="username">
           @if (form.get('username')?.invalid && form.get('username')?.touched) {
-            <p class="text-red-500 text-xs mt-1">Requerido</p>
+            <p class="text-red-500 text-xs mt-1">{{ t('AUTH.REQUIRED') }}</p>
           }
         </div>
 
         <div>
-          <label class="label-field">Contraseña *</label>
+          <label class="label-field">{{ t('AUTH.PASSWORD') }} *</label>
           <div class="relative">
             <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
-              class="input-field pr-10" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+              class="input-field pr-10" [placeholder]="t('AUTH.PLACEHOLDER_PASS_REG')" autocomplete="new-password">
             <button type="button" (click)="showPassword = !showPassword"
               class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-chocolate transition-colors"
-              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              [attr.aria-label]="showPassword ? t('AUTH.HIDE_PASS') : t('AUTH.SHOW_PASS')">
               @if (showPassword) {
                 <fa-icon [icon]="faEyeSlash"></fa-icon>
               } @else {
@@ -78,19 +78,19 @@
             </button>
           </div>
           @if (form.get('password')?.invalid && form.get('password')?.touched) {
-            <p class="text-red-500 text-xs mt-1">Mínimo 6 caracteres</p>
+            <p class="text-red-500 text-xs mt-1">{{ t('AUTH.REQ_PASS_MIN') }}</p>
           }
         </div>
 
         <button type="submit" [disabled]="loading || form.invalid"
           class="btn-chocolate w-full text-center mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
-          @if (loading) { <span>Creando cuenta…</span> } @else { <span>Crear cuenta</span> }
+          @if (loading) { <span>{{ t('AUTH.CREATING_ACCOUNT') }}</span> } @else { <span>{{ t('AUTH.CREATE_ACCOUNT') }}</span> }
         </button>
       </form>
 
       <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-        ¿Ya tienes cuenta?
-        <a routerLink="/login" class="text-churro font-bold hover:underline">Inicia sesión</a>
+        {{ t('AUTH.HAVE_ACCOUNT') }}
+        <a routerLink="/login" class="text-churro font-bold hover:underline">{{ t('AUTH.LOGIN_HERE') }}</a>
       </p>
     </div>
   </div>
