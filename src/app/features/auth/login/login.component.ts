@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -29,20 +29,20 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  loading = false;
+  loading = signal(false);
   errorMsg = '';
   showPassword = false;
 
   onSubmit(): void {
     if (this.form.invalid) return;
-    this.loading = true;
+    this.loading.set(true);
     this.errorMsg = '';
     const { username, password } = this.form.value;
     this.auth.login(username!, password!).subscribe({
       next: () => this.router.navigate(['/menu']),
       error: (err) => {
         this.errorMsg = err?.error?.body || 'Credenciales incorrectas';
-        this.loading = false;
+        this.loading.set(false);
       }
     });
   }

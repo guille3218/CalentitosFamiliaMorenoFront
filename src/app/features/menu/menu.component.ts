@@ -128,4 +128,8 @@ export class MenuComponent implements OnInit {
       this.productoService.update(producto.id, { nombre: producto.nombre, precio: producto.precio, estado: 'activo' }).subscribe(() => this.cargarProductos());
     }
   }
+
+  disabledPlus(producto: Producto): boolean {
+    return producto.stock_actual! <= 0 || this.carritoService.items().some(i => i.producto.id === producto.id && i.cantidad >= producto.stock_actual!);
+  }
 }

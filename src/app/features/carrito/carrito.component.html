@@ -38,7 +38,8 @@
                 -
               </button>
               <span class="w-8 text-center font-bold text-chocolate dark:text-crema">{{ item.cantidad }}</span>
-              <button (click)="carrito.actualizarCantidad(item.producto.id, item.cantidad + 1)"
+              <button (click)="carrito.actualizarCantidad(item.producto.id, item.cantidad + 1)" [disabled]="disabledPlus(item.producto)"
+                  [ngClass]="{'opacity-50': disabledPlus(item.producto), 'cursor-not-allowed': disabledPlus(item.producto)}"
                 class="w-8 h-8 rounded-full bg-churro hover:bg-opacity-80 font-bold text-lg transition-colors flex items-center justify-center">
                 +
               </button>
@@ -109,9 +110,9 @@
               <textarea formControlName="notas" class="input-field resize-none h-16" [placeholder]="t('CART.PLACEHOLDER_NOTES')"></textarea>
             </div>
 
-            <button type="submit" [disabled]="pedidoForm.invalid || procesando"
+            <button type="submit" [disabled]="pedidoForm.invalid || procesando()"
               class="btn-chocolate w-full disabled:opacity-60">
-              {{ procesando ? t('CART.PROCESSING') : t('CART.CONFIRM_ORDER') }}
+              {{ procesando() ? t('CART.PROCESSING') : t('CART.CONFIRM_ORDER') }}
             </button>
           </form>
         </div>

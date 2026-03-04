@@ -85,7 +85,8 @@
 
               <!-- Acciones cliente -->
               @if (auth.isLoggedIn() && !auth.isAdmin()) {
-                <button (click)="agregarAlCarrito(producto)"
+                <button (click)="agregarAlCarrito(producto)" [disabled]="disabledPlus(producto)"
+                  [ngClass]="{'opacity-50': disabledPlus(producto), 'cursor-not-allowed': disabledPlus(producto)}"
                   class="bg-churro text-chocolate w-10 h-10 rounded-full flex items-center justify-center text-xl font-black hover:bg-opacity-80 hover:scale-110 transition-all shadow-sm">
                   +
                 </button>

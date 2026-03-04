@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -34,19 +34,19 @@ export class RegisterComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  loading = false;
+  loading = signal(false);
   errorMsg = '';
   showPassword = false;
 
   onSubmit(): void {
     if (this.form.invalid) return;
-    this.loading = true;
+    this.loading.set(true);
     this.errorMsg = '';
     this.auth.register(this.form.value as any).subscribe({
       next: () => this.router.navigate(['/menu']),
       error: (err) => {
         this.errorMsg = err?.error?.body || 'Error al registrar. Comprueba los datos.';
-        this.loading = false;
+        this.loading.set(false);
       }
     });
   }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { CrearPedidoRequest } from '../../core/interfaces/pedido.interface';
 import { faCartShopping, faCookieBite, faXmark, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { TranslocoModule } from '@jsverse/transloco';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Producto } from '../../core/interfaces/producto.interface';
 
 @Component({
   selector: 'app-carrito',
@@ -27,7 +28,7 @@ export class CarritoComponent {
   faCookieBite = faCookieBite;
   faCircleExclamation = faCircleExclamation;
 
-  procesando = false;
+  procesando = signal(false);
   errorMsg = '';
 
   pedidoForm = this.fb.group({
@@ -38,7 +39,7 @@ export class CarritoComponent {
 
   confirmarPedido(): void {
     if (this.pedidoForm.invalid || this.carrito.items().length === 0) return;
-    this.procesando = true;
+    this.procesando.set(true);
     this.errorMsg = '';
 
     const payload: CrearPedidoRequest = {
@@ -58,8 +59,12 @@ export class CarritoComponent {
       },
       error: (err) => {
         this.errorMsg = err?.error?.body || 'Error al procesar el pedido';
-        this.procesando = false;
+        this.procesando.set(false);
       }
     });
+  }
+
+  disabledPlus(producto: Producto): boolean {
+    return producto.stock_actual! <= 0 || this.carrito.items().some(i => i.producto.id === producto.id && i.cantidad >= producto.stock_actual!);
   }
 }

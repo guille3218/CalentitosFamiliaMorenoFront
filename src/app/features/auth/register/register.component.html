@@ -82,9 +82,9 @@
           }
         </div>
 
-        <button type="submit" [disabled]="loading || form.invalid"
+        <button type="submit" [disabled]="loading() || form.invalid"
           class="btn-chocolate w-full text-center mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
-          @if (loading) { <span>{{ t('AUTH.CREATING_ACCOUNT') }}</span> } @else { <span>{{ t('AUTH.CREATE_ACCOUNT') }}</span> }
+          @if (loading()) { <span>{{ t('AUTH.CREATING_ACCOUNT') }}</span> } @else { <span>{{ t('AUTH.CREATE_ACCOUNT') }}</span> }
         </button>
       </form>
 

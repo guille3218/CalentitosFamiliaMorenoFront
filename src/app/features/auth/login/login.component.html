@@ -50,9 +50,9 @@
           }
         </div>
 
-        <button type="submit" [disabled]="loading || form.invalid"
+        <button type="submit" [disabled]="loading() || form.invalid"
           class="btn-chocolate w-full text-center disabled:opacity-60 disabled:cursor-not-allowed">
-          @if (loading) { <span>{{ t('AUTH.ENTERING') }}</span> } @else { <span>{{ t('AUTH.LOGIN') }}</span> }
+          @if (loading()) { <span>{{ t('AUTH.ENTERING') }}</span> } @else { <span>{{ t('AUTH.LOGIN') }}</span> }
         </button>
       </form>
 
