@@ -77,7 +77,7 @@ export class DetallePedidoComponent implements OnInit {
     const displayEstado = current === 'confirmado' ? 'preparando' : current;
     const idx = this.timelineSteps.findIndex(s => s.estado === displayEstado);
     if (idx < 0) return '0%';
-    const pct = (idx / (this.timelineSteps.length - 1)) * 100;
+    const pct = (idx / (this.timelineSteps.length - 1)) * 93;
     return `${pct}%`;
   }
 
