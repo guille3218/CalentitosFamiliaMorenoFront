@@ -43,10 +43,10 @@ export class DetallePedidoComponent implements OnInit {
     { estado: 'pendiente',  label: 'Pendiente',  icon: faClock },
     { estado: 'preparando', label: 'Preparando', icon: faMortarPestle },
     { estado: 'listo',      label: 'Listo para recoger', icon: faClipboardCheck },
-    { estado: 'completado', label: 'entregado', icon: faSquareCheck },
+    { estado: 'entregado', label: 'Entregado', icon: faSquareCheck },
   ];
 
-  private readonly estadoOrden: EstadoPedido[] = ['pendiente', 'confirmado', 'preparando', 'listo', 'completado'];
+  private readonly estadoOrden: EstadoPedido[] = ['pendiente', 'confirmado', 'preparando', 'listo', 'entregado'];
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;

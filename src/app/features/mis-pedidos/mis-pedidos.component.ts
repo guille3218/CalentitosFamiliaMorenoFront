@@ -34,7 +34,7 @@ export class MisPedidosComponent implements OnInit {
       confirmado: 'badge-confirmado',
       preparando: 'badge-preparando',
       listo: 'badge-listo',
-      completado: 'badge-completado',
+      entregado: 'badge-completado',
       cancelado: 'badge-cancelado'
     };
     return map[estado] ?? 'badge-pendiente';

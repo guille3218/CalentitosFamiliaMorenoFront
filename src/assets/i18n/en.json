@@ -136,7 +136,7 @@
     "CONFIRMADO": "Confirmed",
     "PREPARANDO": "Preparing",
     "LISTO": "Ready",
-    "COMPLETADO": "Completed",
+    "ENTREGADO": "Delivered",
     "CANCELADO": "Cancelled",
     "ACTIVO": "Active",
     "INACTIVO": "Inactive"

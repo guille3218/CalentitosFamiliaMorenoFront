@@ -29,7 +29,7 @@ export class GestionPedidosComponent implements OnInit {
     { value: 'pendiente' as EstadoPedido,  label: 'Pendiente' },
     { value: 'preparando' as EstadoPedido, label: 'Preparando' },
     { value: 'listo' as EstadoPedido,      label: 'Listo' },
-    { value: 'entregado' as EstadoPedido, label: 'Completado' },
+    { value: 'entregado' as EstadoPedido, label: 'Entregado' },
     { value: 'cancelado' as EstadoPedido,  label: 'Cancelado' },
   ];
 
@@ -64,7 +64,7 @@ export class GestionPedidosComponent implements OnInit {
     const map: Record<string, string> = {
       pendiente: 'badge-pendiente', confirmado: 'badge-confirmado',
       preparando: 'badge-preparando', listo: 'badge-listo',
-      completado: 'badge-completado', cancelado: 'badge-cancelado'
+      entregado: 'badge-completado', cancelado: 'badge-cancelado'
     };
     return map[estado] ?? 'badge-pendiente';
   }

@@ -63,7 +63,7 @@
                 <td class="px-6 py-4 text-center">
                   <select [ngModel]="pedido.estado"
                     (ngModelChange)="cambiarEstado(pedido, $event)"
-                    [disabled]="pedido.estado === 'cancelado' || pedido.estado === 'completado'"
+                    [disabled]="pedido.estado === 'cancelado' || pedido.estado === 'entregado'"
                     class="text-sm border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-input text-chocolate dark:text-crema rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-churro disabled:opacity-50 disabled:cursor-not-allowed">
                     @for (est of estados; track est.value) {
                       <option [value]="est.value">{{ t('STATUS.' + (est.value | uppercase)) }}</option>

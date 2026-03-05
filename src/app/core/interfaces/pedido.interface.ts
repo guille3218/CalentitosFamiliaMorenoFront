@@ -1,4 +1,4 @@
-export type EstadoPedido = 'pendiente' | 'confirmado' | 'preparando' | 'listo' | 'completado' | 'cancelado';
+export type EstadoPedido = 'pendiente' | 'confirmado' | 'preparando' | 'listo' | 'entregado' | 'cancelado';
 export type MetodoPago = 'efectivo' | 'tarjeta' | 'transferencia' | 'bizum';
 
 export interface LineaPedido {
