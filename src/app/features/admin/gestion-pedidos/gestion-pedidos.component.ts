@@ -27,10 +27,9 @@ export class GestionPedidosComponent implements OnInit {
 
   estados = [
     { value: 'pendiente' as EstadoPedido,  label: 'Pendiente' },
-    { value: 'confirmado' as EstadoPedido, label: 'Confirmado' },
     { value: 'preparando' as EstadoPedido, label: 'Preparando' },
     { value: 'listo' as EstadoPedido,      label: 'Listo' },
-    { value: 'completado' as EstadoPedido, label: 'Completado' },
+    { value: 'entregado' as EstadoPedido, label: 'Completado' },
     { value: 'cancelado' as EstadoPedido,  label: 'Cancelado' },
   ];
 
